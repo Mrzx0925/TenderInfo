@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    username: root
+    password: aa909090
+    url: jdbc:mysql://127.0.0.1:3306/zxsystem?serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      #更新或者创建数据表
+      ddl-auto: update
+    show-sql: true
+
