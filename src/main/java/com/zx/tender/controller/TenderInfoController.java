@@ -9,13 +9,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 /******************************************************
- 类名： UserController
+ 类名： TenderInfoController
  功能：Controller层,返回给前端json数据，供前端使用
  作者： 张喜
  版本： 1.0版
@@ -25,7 +27,7 @@ import java.util.List;
  *****************************************************/
 
 @RestController
-public class UserController {
+public class TenderInfoController {
     @Autowired
     TenderInfoRespository tenderInfoRespository;
 
@@ -35,8 +37,9 @@ public class UserController {
      *功能：查询数据库所有的招标信息
      *返回值：List<TenderInfo> 招标信息数组
      */
-    @GetMapping("/queryall")
-    public List<TenderInfo> getTenderInfo(){
+    @PostMapping("/queryall")
+    public List<TenderInfo> getTenderInfo(HttpServletResponse response){
+        response.setHeader("Access-Control-Allow-Origin", "*"); //前后端分离ajax访问需要
        List<TenderInfo> tenderInfoList =  tenderInfoRespository.findAll();
        return tenderInfoList;
     }
@@ -45,9 +48,22 @@ public class UserController {
      *功能：根据项目名称查询数据库的招标信息
      *返回值：TenderInfo 招标信息
      */
-    @GetMapping("/queryby/{name}")
-    public TenderInfo getTenderInfoByName(@PathVariable String name){
-       TenderInfo tenderInfo =  tenderInfoRespository.findByName(name);
+    @PostMapping("/queryby/{name}")
+    public TenderInfo getTenderInfoByName(@PathVariable String name,HttpServletResponse response){
+        response.setHeader("Access-Control-Allow-Origin", "*"); //前后端分离ajax访问需要
+        TenderInfo tenderInfo =  tenderInfoRespository.findByName(name);
+        return  tenderInfo;
+    }
+
+    /**
+     *函数名：getTenderInfoByID
+     *功能：根据ID查询数据库的招标信息
+     *返回值：TenderInfo 招标信息
+     */
+    @PostMapping("/querybyid/{id}")
+    public TenderInfo getTenderInfoByID(@PathVariable int id,HttpServletResponse response){
+        response.setHeader("Access-Control-Allow-Origin", "*"); //前后端分离ajax访问需要
+        TenderInfo tenderInfo =  tenderInfoRespository.findById(id).get();
         return  tenderInfo;
     }
 
@@ -58,8 +74,8 @@ public class UserController {
      */
     @PostMapping("/delete/{id}")
     public boolean deleteById(@PathVariable int id,HttpServletResponse response){
-
-        tenderInfoRespository.deleteById(1);
+        response.setHeader("Access-Control-Allow-Origin", "*"); //前后端分离ajax访问需要
+        tenderInfoRespository.deleteById(id);
         return true;
     }
 
@@ -94,4 +110,16 @@ public class UserController {
         tenderInfoRespository.save(tenderInfo);
         return true;
     }
+
+    /**
+     *函数名：getContext
+     *功能：根据ID返回项目内容
+     *返回值：String 项目内容
+     */
+    @GetMapping("/findcontext/{id}")
+    public String getContext(@PathVariable int id){
+        return tenderInfoRespository.findContext(id);
+    }
+
+
 }
