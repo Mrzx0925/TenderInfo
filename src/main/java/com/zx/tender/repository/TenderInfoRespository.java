@@ -18,8 +18,5 @@ import org.springframework.data.jpa.repository.Query;
 public interface TenderInfoRespository extends JpaRepository<TenderInfo, Integer> {
     //根据名称查询
     @Query(value = "select *from tender_info where name = ?1",nativeQuery = true)
-    TenderInfo findByName(String name); //根据ID查询内容
-    @Query(value = "select context from tender_info where id = ?1",nativeQuery = true)
-    String findContext(int id);
-
+    TenderInfo findByName(String name);
 }
