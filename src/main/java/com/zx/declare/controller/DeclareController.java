@@ -1,7 +1,7 @@
-package com.zx.tender.controller;
+package com.zx.declare.controller;
 
-import com.zx.tender.entity.DeclareForm;
-import com.zx.tender.service.DeclareFormService;
+import com.zx.declare.entity.DeclareForm;
+import com.zx.declare.service.DeclareFormService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,10 +16,10 @@ import java.util.List;
  类名： TenderInfoController
  功能： Controller层,返回给前端json数据，供前端使用
  作者： 张喜
- 版本： 2.0版
+ 版本： 3.0版
  日期： 2019年10月10日
- 修改日期：2019年10月12日
- 备注：第二版
+ 修改日期：2019年10月14日
+ 备注：第三版
  *****************************************************/
 
 @RestController
@@ -39,13 +39,24 @@ public class DeclareController {
         List<DeclareForm> declareFormList = declareFormService.getDeclareInfo();
         return declareFormList;
     }
+    /**
+     * 函数名：getDeclareInfoById
+     * 功能：返回json格式的招标信息给前端
+     * 返回值：declareForm 招标信息
+     */
+    @PostMapping("/querybyid/{id}")
+    public DeclareForm getDeclareInfoById(@PathVariable int id, HttpServletResponse response) {
+        response.setHeader("Access-Control-Allow-Origin", "*"); //前后端分离ajax访问需要
+        DeclareForm declareForm = declareFormService.getDeclareInfoById(id);
+        return declareForm;
+    }
 
     /**
      * 函数名：getDeclareInfoByName
      * 功能：返回json格式的招标信息给前端
      * 返回值：declareForm 招标信息
      */
-    @PostMapping("/queryby/{name}")
+    @PostMapping("/querybyname/{name}")
     public DeclareForm getDeclareInfoByName(@PathVariable String name, HttpServletResponse response) {
         response.setHeader("Access-Control-Allow-Origin", "*"); //前后端分离ajax访问需要
         DeclareForm declareForm = declareFormService.getDeclareInfoByName(name);

@@ -1,21 +1,20 @@
-package com.zx.tender.service;
+package com.zx.declare.service;
 
-import com.zx.tender.entity.DeclareForm;
-import com.zx.tender.repository.DeclareInfoRespository;
+import com.zx.declare.entity.DeclareForm;
+import com.zx.declare.repository.DeclareInfoRespository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
 import java.util.List;
 
 /******************************************************
  类名： DeclareFormService
  功能：Service层,对数据处理，返回给Controller层
  作者： 张喜
- 版本： 1.0版
+ 版本： 2.0版
  日期： 2019年10月12日
- 修改日期：2019年10月12日
- 备注：第一版
+ 修改日期：2019年10月14日
+ 备注：第二版
  *****************************************************/
 @Service
 public class DeclareFormService {
@@ -32,6 +31,16 @@ public class DeclareFormService {
     public List<DeclareForm> getDeclareInfo() {
         List<DeclareForm> declareFormList = declareInfoRespository.findAll();
         return declareFormList;
+    }
+
+    /**
+     * 函数名：getDeclareInfoById
+     * 功能：根据项目Id查询数据库的招标信息
+     * 返回值：declareForm 招标信息
+     */
+    public DeclareForm getDeclareInfoById(int id) {
+        DeclareForm declareForm = declareInfoRespository.getDeclareInfoById(id);
+        return declareForm;
     }
 
     /**
@@ -76,6 +85,7 @@ public class DeclareFormService {
     public boolean updateDeclareInfo(int id, DeclareForm info) {
         DeclareForm declareForm = declareInfoRespository.findById(id).get();
         declareForm.setFinishdate(info.getFinishdate());
+        declareForm.setProjectno(info.getProjectno());
         declareForm.setProjectcontent(info.getProjectcontent());
         declareForm.setProjectname(info.getProjectname());
         declareForm.setNote(info.getNote());

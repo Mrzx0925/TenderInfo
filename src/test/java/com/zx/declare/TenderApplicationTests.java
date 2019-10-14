@@ -1,4 +1,4 @@
-package com.zx.tender;
+package com.zx.declare;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

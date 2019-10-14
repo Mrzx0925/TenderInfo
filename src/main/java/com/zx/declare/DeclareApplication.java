@@ -1,4 +1,4 @@
-package com.zx.tender;
+package com.zx.declare;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,10 +12,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  备注：第一版
  *****************************************************/
 @SpringBootApplication
-public class TenderApplication {
+public class DeclareApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(TenderApplication.class, args);
+        SpringApplication.run(DeclareApplication.class, args);
     }
 
 }

@@ -1,4 +1,4 @@
-package com.zx.tender.entity;
+package com.zx.declare.entity;
 
 import javax.persistence.*;
 import java.sql.Date;
